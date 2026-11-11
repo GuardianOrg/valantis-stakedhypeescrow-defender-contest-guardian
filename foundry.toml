@@ -1,0 +1,30 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+solc_version = "0.8.28"
+optimizer = true
+optimizer_runs = 100
+
+[profile.default.fuzz]
+fail_on_revert = true
+runs = 5000
+
+# Set an explicit routine budget: otherwise invariants inherit 5,000 fuzz runs
+# at the default depth of 500. Keep the larger campaign available via stress.
+[profile.default.invariant]
+runs = 128
+depth = 128
+fail_on_revert = true
+
+[profile.ci]
+# Inherit both budgets from default.
+
+[profile.stress.invariant]
+runs = 5000
+depth = 500
+
+[lint]
+exclude_lints = ["unwrapped-modifier-logic"]
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
